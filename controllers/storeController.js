@@ -11,7 +11,7 @@ exports.addStore = ( req, res ) => {
 
 exports.createStore = async (req,res) => {
     // Save POST data to Store model.
-    const store = await (new Store(req.body)).save();
+    const store = await ( new Store( req.body ) ).save();
 
     // Show alert.
     req.flash( 'success', `Successfully Created ${store.name}. Care to leave a review?` );
