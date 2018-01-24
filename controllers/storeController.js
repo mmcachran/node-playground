@@ -82,7 +82,7 @@ exports.editStore = async ( req, res ) => {
 
     // Render the edit form so the user can update the store.
     res.render( 'editStore', { title: `Edit ${store.name}`, store } );
-}
+};
 
 exports.updateStore = async ( req, res ) => {
     // Set the location data to be a point.
@@ -103,4 +103,17 @@ exports.updateStore = async ( req, res ) => {
 
     // Redirect to the store.
     res.redirect( `/stores/${store._id}/edit` );
-}
+};
+
+// Displays a store by slug.
+exports.getStoreBySlug = async(req, res) => {
+    // Fetch the store by slug.
+    const store = await Store.findOne({ slug: req.params.slug });
+
+    // Bail early if no store.
+    if ( ! store ) {
+        return next();
+    }
+
+    res.render( 'store', { store, title: store.name });
+};
