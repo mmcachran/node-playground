@@ -25,6 +25,11 @@ router.get('/register', userController.registerForm);
 
 router.get( '/logout', authController.logout );
 
+router.get( '/account',
+    userController.account,
+    authController.isLoggedIn
+);
+
 // POST Routes
 router.post( '/add',
     storeController.upload,
@@ -35,6 +40,10 @@ router.post('/add/:id',
     storeController.upload,
     catchErrors(storeController.resize),
     catchErrors( storeController.updateStore ) 
+);
+
+router.post( '/account',
+    catchErrors(userController.updateAccount)
 );
 
 router.post( '/login', authController.login );
