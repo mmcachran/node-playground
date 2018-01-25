@@ -55,6 +55,9 @@ exports.resize = async( req, res, next ) => {
 };
 
 exports.createStore = async (req,res) => {
+    // Set the currently logged in user as the author of this new store.
+    req.body.author = req.user._id;
+
     // Save POST data to Store model.
     const store = await ( new Store( req.body ) ).save();
 
@@ -108,7 +111,7 @@ exports.updateStore = async ( req, res ) => {
 // Displays a store by slug.
 exports.getStoreBySlug = async(req, res) => {
     // Fetch the store by slug.
-    const store = await Store.findOne({ slug: req.params.slug });
+    const store = await Store.findOne({ slug: req.params.slug }).populate( 'author' );
 
     // Bail early if no store.
     if ( ! store ) {
