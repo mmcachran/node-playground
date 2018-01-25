@@ -31,6 +31,7 @@ router.get( '/account',
 );
 
 router.get( '/account/reset/:token', catchErrors( authController.reset ) );
+router.get( '/map', storeController.mapPage );
 
 // POST Routes
 router.post( '/add',
@@ -73,6 +74,7 @@ router.post( '/account/reset/:token',
 /**
  * API Endpoints.
  */
-router.get( '/api/v1/search', catchErrors( storeController.searchStores )  );
+router.get( '/api/v1/search', catchErrors( storeController.searchStores ) );
+router.get( '/api/v1/stores/near', catchErrors(storeController.mapStores ) );
 
 module.exports = router;
