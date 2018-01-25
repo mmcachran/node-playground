@@ -30,6 +30,8 @@ router.get( '/account',
     authController.isLoggedIn
 );
 
+router.get( '/account/reset/:token', catchErrors( authController.reset ) );
+
 // POST Routes
 router.post( '/add',
     storeController.upload,
@@ -59,6 +61,13 @@ router.post( '/register',
     // registration with same email
     catchErrors(userController.register),
     authController.login
+);
+
+router.post( '/account/forgot', catchErrors( authController.forgot ) );
+
+router.post( '/account/reset/:token', 
+    authController.confirmedPasswords,
+    catchErrors( authController.update )
 );
 
 module.exports = router;
