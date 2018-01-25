@@ -78,9 +78,15 @@ var _autocomplete = __webpack_require__(3);
 
 var _autocomplete2 = _interopRequireDefault(_autocomplete);
 
+var _typeAhead = __webpack_require__(13);
+
+var _typeAhead2 = _interopRequireDefault(_typeAhead);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _autocomplete2.default)((0, _bling.$)('#address'), (0, _bling.$)('#lat'), (0, _bling.$)('#lng'));
+
+(0, _typeAhead2.default)((0, _bling.$)('.search'));
 
 /***/ }),
 /* 1 */
@@ -144,6 +150,22 @@ function autocomplete(input, latInput, lngInput) {
     });
 }
 exports.default = autocomplete;
+
+/***/ }),
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */
+/***/ (function(module, exports) {
+
+"use strict";
+throw new Error("Module build failed: SyntaxError: Unexpected token, expected ; (71:38)\n\n\u001b[0m \u001b[90m 69 | \u001b[39m        \u001b[36mif\u001b[39m ( ( \u001b[35m40\u001b[39m \u001b[33m===\u001b[39m e\u001b[33m.\u001b[39mkeyCode ) \u001b[33m&&\u001b[39m current ) {\n \u001b[90m 70 | \u001b[39m            next \u001b[33m=\u001b[39m current\u001b[33m.\u001b[39mnextElementSibling \u001b[33m||\u001b[39m items[\u001b[35m0\u001b[39m]\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 71 | \u001b[39m        } elseif ( \u001b[35m40\u001b[39m \u001b[33m===\u001b[39m e\u001b[33m.\u001b[39mkeyCode ) {\n \u001b[90m    | \u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 72 | \u001b[39m            next \u001b[33m=\u001b[39m items[\u001b[35m0\u001b[39m]\u001b[33m;\u001b[39m\n \u001b[90m 73 | \u001b[39m        }\n \u001b[90m 74 | \u001b[39m\u001b[0m\n");
 
 /***/ })
 /******/ ]);
