@@ -79,7 +79,8 @@ exports.getStores = async (req,res) => {
     const storesPromise = Store
         .find()
         .skip( skip )
-        .limit( limit );
+        .limit( limit )
+        .sort( { created: 'desc' } );
 
     // Get the total count.
     const countPromise = Store.count();
@@ -89,6 +90,11 @@ exports.getStores = async (req,res) => {
 
     const pages = Math.ceil( count / limit );
 
+    if ( ! stores.length  && skip ) {
+        req.flash( 'info', `The requested page doesn\'t exist. You\'ve been redirected to page ${pages}` );
+        res.redirect( `/stores/page/${pages}` );
+        return;
+    }
     // Render the template.
     res.render( 'stores', { title: 'Stores', stores, page, count, pages } );
 };
