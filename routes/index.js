@@ -33,6 +33,11 @@ router.get( '/account',
 router.get( '/account/reset/:token', catchErrors( authController.reset ) );
 router.get( '/map', storeController.mapPage );
 
+router.get( '/hearts',
+    authController.isLoggedIn,
+    catchErrors( storeController.getHearts )
+);
+
 // POST Routes
 router.post( '/add',
     storeController.upload,
@@ -70,6 +75,8 @@ router.post( '/account/reset/:token',
     authController.confirmedPasswords,
     catchErrors( authController.update )
 );
+
+router.post( '/api/stores/:id/heart', catchErrors( storeController.heartStore ) );
 
 /**
  * API Endpoints.
