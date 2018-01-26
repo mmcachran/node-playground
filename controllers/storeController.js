@@ -70,11 +70,27 @@ exports.createStore = async (req,res) => {
 };
 
 exports.getStores = async (req,res) => {
+    // Get the page.
+    const page = req.params.page || 1;
+    const limit = 4;
+    const skip = ( page * limit ) - limit;
+
     // Query the database for a list of all stores.
-    const stores = await Store.find();
+    const storesPromise = Store
+        .find()
+        .skip( skip )
+        .limit( limit );
+
+    // Get the total count.
+    const countPromise = Store.count();
+
+    // Promise for both requests.
+    const [stores, count] = await Promise.all([storesPromise, countPromise ]);
+
+    const pages = Math.ceil( count / limit );
 
     // Render the template.
-    res.render( 'stores', { title: 'Stores', stores } );
+    res.render( 'stores', { title: 'Stores', stores, page, count, pages } );
 };
 
 const confirmOwner = (store, user) => {
@@ -215,7 +231,5 @@ exports.getHearts = async (req, res ) => {
 
 exports.getTopStores = async (req, res ) => {
     const stores = await Store.getTopStores();
-
-    res.json( stores  );
-    //res.render( 'topStores', { stores, title: '⭐ Top Stores!' } );
+    res.render( 'topStores', { stores, title: '⭐ Top Stores!' } );
 };
