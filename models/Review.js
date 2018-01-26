@@ -11,7 +11,7 @@ const reviewSchema = new mongoose.Schema({
         ref: 'User',
         required: 'You must supply an author!',
     },
-    Store: {
+    store: {
         type: mongoose.Schema.ObjectId,
         ref: 'Store',
         required: 'You must supply an store!',

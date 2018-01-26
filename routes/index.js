@@ -79,7 +79,7 @@ router.post( '/account/reset/:token',
 
 router.post( '/api/stores/:id/heart', catchErrors( storeController.heartStore ) );
 
-router.post( '/review/:id', 
+router.post( '/reviews/:id', 
     authController.isLoggedIn, 
     catchErrors( reviewController.addReview ) 
 );
