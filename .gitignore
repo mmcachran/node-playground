@@ -1,6 +1,12 @@
 .DS_Store
 .vscode
 node_modules/*
+
+*.log
+.idea
+haters/
+
 variables.env
+variables.env.now
 
 public/uploads
