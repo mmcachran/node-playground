@@ -39,6 +39,9 @@ const storeSchema = new mongoose.Schema({
         ref: 'User',
         required: 'You must supply an author'
     }
+}, {
+    toJson: { virtuals: true },
+    toObject: { virtuals: true },
 });
 
 storeSchema.index({
@@ -76,6 +79,40 @@ storeSchema.statics.getTagsList = function() {
         { $unwind: '$tags' },
         { $group: { _id: '$tags', count: { $sum: 1 } } },
         { $sort: { count: -1 } }
+    ]);
+};
+
+// Find reviews where the store's _id property === review's store property.
+storeSchema.virtual( 'reviews', {
+    ref: 'Review', // The model to link.
+    localField: '_id', // Which field on the store.
+    foreignField: 'store', // Which field on the review.
+});
+
+// Get top stores.
+storeSchema.statics.getTopStores = function() {
+    return this.aggregate([
+        // Lookup stores and populate their reviews.
+        { $lookup: { from: 'reviews' , localField: '_id', foreignField: 'store', as: 'reviews' } },
+
+        // Filter for only items that have 2 or more reviews.
+        { $match: { 'reviews.1': { $exists: true } } },
+
+        // Add the average review rating field.
+        {
+            $project: {
+                photo: '$$ROOT.photo',
+                name: '$$ROOT.name',
+                reviews: '$$ROOT.reviews',
+                averageRating: { $avg: '$reviews.rating' }
+            } 
+        },
+
+        // Sort it by our new field, highest reviews first.
+        { $sort: { averageRating: -1 } }
+
+        // Limit to at most 10.
+        { $limit: 10 }
     ]);
 };
 

@@ -39,6 +39,8 @@ router.get( '/hearts',
     catchErrors( storeController.getHearts )
 );
 
+router.get( '/top', catchErrors( storeController.getTopStores ) );
+
 // POST Routes
 router.post( '/add',
     storeController.upload,
