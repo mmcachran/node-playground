@@ -1,12 +1,12 @@
 .DS_Store
 .vscode
-node_modules/*
+*/node_modules/*
 
 *.log
 .idea
 haters/
 
-variables.env
-variables.env.now
+now-that-is-delicious/variables.env
+now-that-is-delicious/variables.env.now
 
-public/uploads
+now-that-is-delicious/public/uploads
